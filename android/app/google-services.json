@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "778354037182",
+    "project_id": "sm-app-9ed94",
+    "storage_bucket": "sm-app-9ed94.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778354037182:android:4700d68365463558ec29ef",
+        "android_client_info": {
+          "package_name": "com.netecart.smpp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZbdPlS9fcUSfUJjQj6cQ5by_H1opzAng"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
