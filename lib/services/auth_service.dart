@@ -1,22 +1,43 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
   final auth = FirebaseAuth.instance;
+  final users = FirebaseFirestore.instance.collection('users');
 
   //Sign Up
   Future<User?> createUserWithEmailAndPassword(
-      String email, String password) async {
+    final String username,
+    final String email,
+    final String password,
+  ) async {
     try {
-      await auth.createUserWithEmailAndPassword(
+      final userCredential = await auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+      final user = userCredential.user;
+      if (user != null) {
+        await users.doc(user.uid).set({
+          'uid': user.uid,
+          'username': username,
+          'email': email,
+          'profilePicture': '',
+          'bio': '',
+          'followersCount': 0,
+          'followingCount': 0,
+        });
+        return user;
+      } else {
+        log('User creation failed: No user returned');
+        return null;
+      }
     } catch (e) {
-      log(e.toString());
+      log('Error in createUserWithEmailAndPassword: $e');
+      return null;
     }
-    return null;
   }
 
   //Login
@@ -66,5 +87,11 @@ class AuthService {
     } catch (e) {
       log(e.toString());
     }
+  }
+
+  // Get UID
+  String? getCurrentUserId() {
+    User? user = auth.currentUser;
+    return user?.uid;
   }
 }

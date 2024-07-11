@@ -6,9 +6,9 @@ import 'package:sm_app/services/auth_service.dart';
 import 'package:sm_app/utils/color_consts.dart';
 import 'package:sm_app/utils/navigation_helper.dart';
 import 'package:sm_app/utils/size_consts.dart';
-import 'package:sm_app/view/log_and_sign/reset_password.dart';
-import 'package:sm_app/view/main/main_screen.dart';
-import 'package:sm_app/view/log_and_sign/register_screen.dart';
+import 'package:sm_app/views/log_and_sign/reset_password.dart';
+import 'package:sm_app/views/main/main_screen.dart';
+import 'package:sm_app/views/log_and_sign/register_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});

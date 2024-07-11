@@ -8,13 +8,14 @@ import 'package:sm_app/services/auth_service.dart';
 import 'package:sm_app/utils/color_consts.dart';
 import 'package:sm_app/utils/navigation_helper.dart';
 import 'package:sm_app/utils/size_consts.dart';
-import 'package:sm_app/view/log_and_sign/login_screen.dart';
+import 'package:sm_app/views/log_and_sign/login_screen.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
 
   final GlobalKey<FormState> _formKey = GlobalKey();
 
+  final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final alreadyMessege = ValueNotifier<String>('');
@@ -62,6 +63,23 @@ class RegisterScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: Colors.blue,
                         ),
+                      ),
+                      kHight16,
+                      TextFormField(
+                        controller: usernameController,
+                        decoration: InputDecoration(
+                          labelText: 'Your Name',
+                          prefixIcon: const Icon(Icons.email),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.r),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Name is required';
+                          }
+                          return null;
+                        },
                       ),
                       kHight16,
                       TextFormField(
@@ -193,28 +211,32 @@ class RegisterScreen extends StatelessWidget {
   void authSignIn(BuildContext context) async {
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
+    final username = usernameController.text.trim();
 
     isLoading.value = true;
 
     try {
       alreadyMessege.value = '';
-      final isEmailAvailable =
-          await AuthService().isEmailRegistered(email, password);
-      if (isEmailAvailable) {
+      final authService = AuthService();
+      final user = await authService.createUserWithEmailAndPassword(
+          username, email, password);
+      if (user != null) {
         if (context.mounted) {
           context.read<AuthBloc>().add(
                 AuthSignUpEvent(
                   email: email,
                   password: password,
+                  username: username,
                 ),
               );
           NavigationHelper.push(context, LoginScreen());
         }
       } else {
-        alreadyMessege.value = 'The email address is already in use.';
+        alreadyMessege.value =
+            'The email address is already in use or an error occurred.';
       }
     } catch (e) {
-      log(e.toString());
+      log('Error in authSignIn: $e');
     } finally {
       isLoading.value = false;
     }

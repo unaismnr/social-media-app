@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sm_app/view/chats/chat_screen.dart';
-import 'package:sm_app/view/feeds/feed_screen.dart';
-import 'package:sm_app/view/main/bottom_navigation.dart';
-import 'package:sm_app/view/profile/profile_screen.dart';
-import 'package:sm_app/view/stories/stories_screen.dart';
+import 'package:sm_app/views/chats/chat_screen.dart';
+import 'package:sm_app/views/feeds/feed_screen.dart';
+import 'package:sm_app/views/main/bottom_navigation.dart';
+import 'package:sm_app/views/profile/profile_screen.dart';
+import 'package:sm_app/views/stories/stories_screen.dart';
 
 class MainScreen extends StatelessWidget {
   MainScreen({super.key});
