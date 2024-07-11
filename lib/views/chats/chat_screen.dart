@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sm_app/utils/color_consts.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -9,29 +11,31 @@ class ChatScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {},
-        ),
-        title: const Row(
+        title: Row(
           children: [
-            CircleAvatar(
+            const CircleAvatar(
               backgroundImage: AssetImage('assets/login-back.png'),
             ),
-            SizedBox(width: 10),
-            Text(
-              'Rafiya Khan',
+            SizedBox(width: 10.w),
+            const Text(
+              'Close Friend',
               style: TextStyle(color: Colors.black),
             ),
           ],
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.video_call, color: Colors.purple),
+            icon: const Icon(
+              Icons.video_call,
+              color: mainBlue,
+            ),
             onPressed: () {},
           ),
           IconButton(
-            icon: const Icon(Icons.call, color: Colors.purple),
+            icon: const Icon(
+              Icons.call,
+              color: mainBlue,
+            ),
             onPressed: () {},
           ),
         ],
@@ -53,17 +57,17 @@ class ChatScreen extends StatelessWidget {
                 ),
                 ChatBubble(
                   text:
-                      'My work is to analyze bitcoin trend and also provide guidance for my client, helping them to make profit',
+                      'My work is to analyze flutter trend and also provide guidance for my client, helping them to make profit',
                   isMe: false,
                   time: '6:32 pm',
                 ),
                 ChatBubble(
-                  text: 'Do you know about cryptocurrency?',
+                  text: 'Do you know about flutter?',
                   isMe: true,
                   time: '6:32 pm',
                 ),
                 ChatBubble(
-                  text: 'Yes I know cryptocurrency.',
+                  text: 'Yes I know flutter.',
                   isMe: false,
                   time: '6:32 pm',
                 ),
@@ -80,7 +84,7 @@ class ChatScreen extends StatelessWidget {
             child: Row(
               children: [
                 IconButton(
-                  icon: const Icon(Icons.add, color: Colors.purple),
+                  icon: const Icon(Icons.add, color: mainBlue),
                   onPressed: () {},
                 ),
                 Expanded(
@@ -90,18 +94,24 @@ class ChatScreen extends StatelessWidget {
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(30.r),
                         borderSide: BorderSide.none,
                       ),
                     ),
                   ),
                 ),
                 IconButton(
-                  icon: const Icon(Icons.image, color: Colors.purple),
+                  icon: const Icon(
+                    Icons.image,
+                    color: mainBlue,
+                  ),
                   onPressed: () {},
                 ),
                 IconButton(
-                  icon: const Icon(Icons.camera_alt, color: Colors.purple),
+                  icon: const Icon(
+                    Icons.camera_alt,
+                    color: mainBlue,
+                  ),
                   onPressed: () {},
                 ),
               ],
@@ -128,7 +138,10 @@ class ChatBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+      padding: EdgeInsets.symmetric(
+        horizontal: 8.0.w,
+        vertical: 4.0.h,
+      ),
       child: Column(
         crossAxisAlignment:
             isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
@@ -138,27 +151,29 @@ class ChatBubble extends StatelessWidget {
                 isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
             children: [
               if (!isMe)
-                const CircleAvatar(
-                  radius: 15,
-                  backgroundImage: AssetImage('assets/login-back.png'),
+                CircleAvatar(
+                  radius: 15.r,
+                  backgroundImage: const AssetImage('assets/login-back.png'),
                 ),
-              if (!isMe) const SizedBox(width: 5),
+              if (!isMe) SizedBox(width: 5.w),
               Flexible(
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 10.h,
+                    horizontal: 14.w,
+                  ),
                   decoration: BoxDecoration(
-                    color: isMe ? Colors.purple : Colors.grey.shade300,
+                    color: isMe ? mainBlue : Colors.grey.shade300,
                     borderRadius: isMe
-                        ? const BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            bottomLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
+                        ? BorderRadius.only(
+                            topLeft: Radius.circular(20.r),
+                            bottomLeft: Radius.circular(20.r),
+                            topRight: Radius.circular(20.r),
                           )
-                        : const BorderRadius.only(
-                            topRight: Radius.circular(20),
-                            bottomRight: Radius.circular(20),
-                            topLeft: Radius.circular(20),
+                        : BorderRadius.only(
+                            topRight: Radius.circular(20.r),
+                            bottomRight: Radius.circular(20.r),
+                            topLeft: Radius.circular(20.r),
                           ),
                   ),
                   child: Text(
@@ -170,7 +185,7 @@ class ChatBubble extends StatelessWidget {
                   ),
                 ),
               ),
-              if (isMe) const SizedBox(width: 5),
+              if (isMe) SizedBox(width: 5.w),
               if (isMe)
                 const CircleAvatar(
                   radius: 15,
@@ -179,10 +194,15 @@ class ChatBubble extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            padding: EdgeInsets.symmetric(
+              horizontal: 8.0.h,
+            ),
             child: Text(
               time,
-              style: const TextStyle(color: Colors.grey, fontSize: 12),
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 12.w,
+              ),
             ),
           ),
         ],

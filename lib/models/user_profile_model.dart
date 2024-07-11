@@ -4,7 +4,6 @@ class UserProfileModel {
   final String uid;
   final String username;
   final String email;
-  final String password;
   final String profilePicture;
   final String bio;
   final int followersCount;
@@ -14,7 +13,6 @@ class UserProfileModel {
     required this.uid,
     required this.username,
     required this.email,
-    required this.password,
     required this.profilePicture,
     required this.bio,
     required this.followersCount,
@@ -27,7 +25,6 @@ class UserProfileModel {
       uid: doc.id,
       username: data['username'],
       email: data['email'],
-      password: data['password'],
       profilePicture: data['profilePicture'],
       bio: data['bio'],
       followersCount: data['followersCount'],
@@ -39,7 +36,6 @@ class UserProfileModel {
     return {
       'username': username,
       'email': email,
-      'password': password,
       'profilePicture': profilePicture,
       'bio': bio,
       'followersCount': followersCount,

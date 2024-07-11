@@ -6,11 +6,7 @@ import 'package:sm_app/controllers/auth_bloc/auth_bloc.dart';
 import 'package:sm_app/controllers/user_profile_bloc/user_profile_bloc.dart';
 import 'package:sm_app/firebase_options.dart';
 import 'package:sm_app/utils/color_consts.dart';
-import 'package:sm_app/views/chats/chat_screen.dart';
-import 'package:sm_app/views/feeds/feed_screen.dart';
 import 'package:sm_app/views/log_and_sign/login_screen.dart';
-import 'package:sm_app/views/main/main_screen.dart';
-import 'package:sm_app/views/profile/profile_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

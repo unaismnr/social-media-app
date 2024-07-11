@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sm_app/utils/color_consts.dart';
 
 class FeedScreen extends StatelessWidget {
   const FeedScreen({super.key});
@@ -26,21 +28,21 @@ class FeedScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0.w),
               child: Text(
                 'Discover',
                 style: TextStyle(
-                  fontSize: 30,
+                  fontSize: 30.w,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Container(
-                height: 120,
+              padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+              child: SizedBox(
+                height: 120.h,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: const [
@@ -53,12 +55,12 @@ class FeedScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(16.0),
+            Padding(
+              padding: EdgeInsets.all(16.0.w),
               child: Text(
                 'Recently Post',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 20.w,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -69,10 +71,10 @@ class FeedScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: mainBlue,
         onPressed: () {},
         child: const Icon(Icons.add),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
@@ -89,8 +91,8 @@ class StoryItem extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            width: 70,
-            height: 70,
+            width: 70.w,
+            height: 70.h,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(color: Colors.blue, width: 3),
@@ -102,7 +104,7 @@ class StoryItem extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
           Text(
             isAdd ? 'Your Story' : 'Friend',
             style: const TextStyle(color: Colors.black),
@@ -119,9 +121,14 @@ class PostItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      padding: EdgeInsets.symmetric(
+        horizontal: 16.0.h,
+        vertical: 8.0.h,
+      ),
       child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -136,16 +143,16 @@ class PostItem extends StatelessWidget {
                   'Nilesh',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                subtitle: Text('Posted in u8s - 1h ago'),
+                subtitle: Text('Posted 1h ago'),
               ),
-              const SizedBox(height: 10),
-              const Text(
+              SizedBox(height: 10.h),
+              Text(
                 'Discover adventure in patagonia\'s peaks or serenity provence\'s @hamlets - arrival',
-                style: TextStyle(fontSize: 16),
+                style: TextStyle(fontSize: 16.w),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 10.h),
               Container(
-                height: 200,
+                height: 200.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   image: const DecorationImage(

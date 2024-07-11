@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sm_app/models/user_profile_model.dart';
 import 'package:sm_app/services/auth_service.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class UserProfileService {
   final auth = AuthService();
@@ -23,6 +26,34 @@ class UserProfileService {
     } catch (error) {
       print('Error getting user profile: $error');
       return null;
+    }
+  }
+
+  Future<String?> uploadImage(File image, String uid) async {
+    try {
+      Reference storageReference = FirebaseStorage.instance.ref().child(
+            'profile_pictures/$uid',
+          );
+      UploadTask uploadTask = storageReference.putFile(image);
+      await uploadTask;
+      String downloadURL = await storageReference.getDownloadURL();
+      return downloadURL;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<void> updateProfilePicture(
+    String uid,
+    String profilePictureURL,
+  ) async {
+    try {
+      await FirebaseFirestore.instance.collection('users').doc(uid).update(
+        {'profilePicture': profilePictureURL},
+      );
+    } catch (e) {
+      print(e);
     }
   }
 }
