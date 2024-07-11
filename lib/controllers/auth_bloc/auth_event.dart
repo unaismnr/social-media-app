@@ -24,3 +24,11 @@ class AuthLoginEvent extends AuthEvent {
 }
 
 class AuthSignOutEvent extends AuthEvent {}
+
+class AuthSendResetEmail extends AuthEvent {
+  final String email;
+
+  AuthSendResetEmail({
+    required this.email,
+  });
+}

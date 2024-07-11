@@ -27,7 +27,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     //Login
     on<AuthLoginEvent>((event, emit) async {
-      emit(AuthLoading());
       try {
         final userCredential = await auth.loginUserWithEmailAndPassword(
           event.email,
@@ -44,6 +43,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthSignOutEvent>((event, emit) async {
       auth.signOut();
       emit(AuthSignOut());
+    });
+
+    //Send reset password
+    on<AuthSendResetEmail>((event, emit) {
+      auth.sendResetPasswordEmail(event.email);
     });
   }
 }

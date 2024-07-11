@@ -1,28 +1,19 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sm_app/services/auth_service.dart';
+import 'package:sm_app/controllers/auth_bloc/auth_bloc.dart';
 import 'package:sm_app/utils/color_consts.dart';
-import 'package:sm_app/utils/navigation_helper.dart';
 import 'package:sm_app/utils/size_consts.dart';
-import 'package:sm_app/view/main/main_screen.dart';
-import 'package:sm_app/view/register.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+class ResetPasswordScreen extends StatelessWidget {
+  ResetPasswordScreen({super.key});
 
   final GlobalKey<FormState> _formKey = GlobalKey();
 
-  void toggleVisibility() {
-    visibilityNotifier.value = !visibilityNotifier.value;
-  }
-
   final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final alreadyMessege = ValueNotifier<String>('');
   final isLoading = ValueNotifier<bool>(false);
-  final visibilityNotifier = ValueNotifier<bool>(true);
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +43,7 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    "Please Login!",
+                    "Send Reset Email!",
                     style: TextStyle(
                       fontSize: 18.w,
                       fontWeight: FontWeight.bold,
@@ -80,49 +71,6 @@ class LoginScreen extends StatelessWidget {
                       return null;
                     },
                   ),
-                  kHight16,
-                  ValueListenableBuilder(
-                      valueListenable: visibilityNotifier,
-                      builder: (context, visible, _) {
-                        return TextFormField(
-                          controller: passwordController,
-                          decoration: InputDecoration(
-                            labelText: 'Password',
-                            prefixIcon: const Icon(Icons.lock),
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                toggleVisibility();
-                              },
-                              icon: Icon(visible
-                                  ? Icons.visibility_off
-                                  : Icons.visibility),
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8.r),
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Email is required';
-                            }
-                            if (value.length < 6) {
-                              return 'Password must be at least 6 characters long';
-                            }
-                            return null;
-                          },
-                          obscureText: visible ? true : false,
-                        );
-                      }),
-                  kHight16,
-                  Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: () {},
-                        child: const Text(
-                          "Forgot password?",
-                          style: TextStyle(color: mainBlue),
-                        ),
-                      )),
                   kHight24,
                   SizedBox(
                     width: double.infinity,
@@ -134,7 +82,7 @@ class LoginScreen extends StatelessWidget {
                               : ElevatedButton(
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
-                                      authLogIn(context);
+                                      authSendResetEmail(context);
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(
@@ -146,7 +94,7 @@ class LoginScreen extends StatelessWidget {
                                     ),
                                   ),
                                   child: Text(
-                                    "Log in",
+                                    "Send email",
                                     style: TextStyle(
                                       fontSize: 18.w,
                                       color: Colors.white,
@@ -154,33 +102,6 @@ class LoginScreen extends StatelessWidget {
                                   ),
                                 );
                         }),
-                  ),
-                  ValueListenableBuilder(
-                      valueListenable: alreadyMessege,
-                      builder: (context, error, _) {
-                        return Text(
-                          error,
-                          style: const TextStyle(color: Colors.red),
-                        );
-                      }),
-                  SizedBox(height: 24.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("Don't have an account?"),
-                      TextButton(
-                        onPressed: () {
-                          NavigationHelper.push(
-                            context,
-                            RegisterScreen(),
-                          );
-                        },
-                        child: const Text(
-                          "Sign up",
-                          style: TextStyle(color: mainBlue),
-                        ),
-                      ),
-                    ],
                   ),
                 ],
               ),
@@ -191,23 +112,26 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  void authLogIn(BuildContext context) async {
+  void authSendResetEmail(BuildContext context) async {
     final email = emailController.text.trim();
-    final password = passwordController.text.trim();
 
     isLoading.value = true;
 
     try {
-      alreadyMessege.value = '';
-      await AuthService().loginUserWithEmailAndPassword(email, password);
+      context.read<AuthBloc>().add(
+            AuthSendResetEmail(email: email),
+          );
+
       if (context.mounted) {
-        NavigationHelper.pushReplacment(
-          context,
-          MainScreen(),
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: mainBlue,
+            content: Text('Password reset email sent to your email'),
+          ),
         );
+        Navigator.pop(context);
       }
     } catch (e) {
-      alreadyMessege.value = 'Wrong login details';
       log(e.toString());
     } finally {
       isLoading.value = false;

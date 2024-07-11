@@ -8,7 +8,7 @@ import 'package:sm_app/services/auth_service.dart';
 import 'package:sm_app/utils/color_consts.dart';
 import 'package:sm_app/utils/navigation_helper.dart';
 import 'package:sm_app/utils/size_consts.dart';
-import 'package:sm_app/view/login.dart';
+import 'package:sm_app/view/log_and_sign/login_screen.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});

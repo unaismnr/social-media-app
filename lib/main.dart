@@ -5,7 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sm_app/controllers/auth_bloc/auth_bloc.dart';
 import 'package:sm_app/firebase_options.dart';
 import 'package:sm_app/utils/color_consts.dart';
-import 'package:sm_app/view/login.dart';
+import 'package:sm_app/view/chats/chat_screen.dart';
+import 'package:sm_app/view/feeds/feed_screen.dart';
+import 'package:sm_app/view/log_and_sign/login_screen.dart';
+import 'package:sm_app/view/main/main_screen.dart';
+import 'package:sm_app/view/profile/profile_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +38,7 @@ class MyApp extends StatelessWidget {
             ),
             useMaterial3: false,
           ),
-          home: LoginScreen(),
+          home: MainScreen(),
           debugShowCheckedModeBanner: false,
         ),
       ),
